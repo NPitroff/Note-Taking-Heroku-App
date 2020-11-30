@@ -1,15 +1,27 @@
-
+// SET UP THE VAR FOR STARTING THE EXPRESS SERVER =====================================
 var express = require("express");
+var path = require("path");
 
 // Tells node that we are creating an "express" server
 var app = express();
-
 // Sets an initial port. We"ll use this later in our listener
 var PORT = process.env.PORT || 8080;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+//==================================================================================
+
+//SET UP THE PATHS TO LOAD THE FILES===================================================
+
+//ROUTES FOR THE FILE PATHS
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.get("/notes", function(req, res) {
+  res.sendFile(path.join(__dirname, "notes.html"));
+});
 
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 require("../html/index.html")(app);
@@ -20,16 +32,9 @@ app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
 });
 
-//PULL FROM THE FILE PATHS
-app.get("/", function(req, res) {
-  res.json(path.join(__dirname, "../html/index.html"));
-});
-
-app.get("/", function(req, res) {
-  res.json(path.join(__dirname, "../html/notes.html"));
-});
 
 
+//=======================================================================================
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
 const $saveNoteBtn = $(".save-note");
