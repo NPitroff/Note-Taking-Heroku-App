@@ -20,6 +20,15 @@ app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
 });
 
+//PULL FROM THE FILE PATHS
+app.get("/", function(req, res) {
+  res.json(path.join(__dirname, "../html/index.html"));
+});
+
+app.get("/", function(req, res) {
+  res.json(path.join(__dirname, "../html/notes.html"));
+});
+
 
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
