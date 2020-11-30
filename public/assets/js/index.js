@@ -7,7 +7,12 @@ var app = express();
 // Sets an initial port. We"ll use this later in our listener
 var PORT = process.env.PORT || 8080;
 
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
+require("../html/index.html")(app);
+require("../html/notes.html")(app);
 
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
