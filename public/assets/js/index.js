@@ -1,40 +1,5 @@
-// SET UP THE VAR FOR STARTING THE EXPRESS SERVER =====================================
-var express = require("express");
-var path = require("path");
+console.log("Loading index.js file");
 
-// Tells node that we are creating an "express" server
-var app = express();
-// Sets an initial port. We"ll use this later in our listener
-var PORT = process.env.PORT || 8080;
-
-// Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-//==================================================================================
-
-//SET UP THE PATHS TO LOAD THE FILES===================================================
-
-//ROUTES FOR THE FILE PATHS
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
-app.get("/notes", function(req, res) {
-  res.sendFile(path.join(__dirname, "notes.html"));
-});
-
-// These routes give our server a "map" of how to respond when users visit or request data from various URLs.
-require("../html/index.html")(app);
-require("../html/notes.html")(app);
-
-// The below code effectively "starts" our server
-app.listen(PORT, function() {
-  console.log("App listening on PORT: " + PORT);
-});
-
-
-
-//=======================================================================================
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
 const $saveNoteBtn = $(".save-note");
@@ -48,7 +13,7 @@ let activeNote = {};
 const getNotes = () => {
   return $.ajax({
     url: "/api/notes",
-    method: "GET",
+    method: "GET", 
   });
 };
 
@@ -172,10 +137,14 @@ const renderNoteList = (notes) => {
   $noteList.append(noteListItems);
 };
 
+
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => {
+  console.log("getAndRenderNotes");
   return getNotes().then(renderNoteList);
 };
+
+
 
 $saveNoteBtn.on("click", handleNoteSave);
 $noteList.on("click", ".list-group-item", handleNoteView);
