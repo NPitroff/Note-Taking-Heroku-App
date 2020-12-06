@@ -53,6 +53,19 @@ app.get("/api/notes", function(req, res) {
             res.json(allnotes);
         })
     })
+});
+
+app.delete("/api/notes/:id", function(req, res){
+  console.log("DELETING FILES")
+  let jsonFilePath = path.join(__dirname, "/db/db.json");
+  //=======DELETING NOTE BY ITS ID===============================
+  for(let i =0; i < allnotes.length; i++){
+    if(allnotes[i].id == req.params.id){
+      //==============SPLICE COMMAND TAKES THE ARRAY POSITION AND REMOVES ONLY THE ONE NOTE====================
+      allnotes.splice(i,1);
+      break;
+    }
+  }
 })
 
 
