@@ -66,6 +66,16 @@ app.delete("/api/notes/:id", function(req, res){
       break;
     }
   }
+//====================WRITE THE UPDATED NOTE FILE==================================
+fs.writeFileSync(jsonFilePath, JSON.stringify(allnotes), function (err){
+
+  if(err){
+    return console.log("CANNOT UPDATE FILE AFTER DELETE");
+  }else{
+    console.log("YOUR NOTE WAS DELETED, AND THE NOTEBOOK HAS BEEN UPDATED!")
+  }
+});
+res.json(allnotes)
 })
 
 
